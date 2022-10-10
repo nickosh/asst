@@ -1,0 +1,10 @@
+name: Inclusiveness Analyzer
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Inclusiveness Analyzer
+      uses: microsoft/InclusivenessAnalyzer@v0.1.5-beta

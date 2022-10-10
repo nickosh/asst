@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "asst"
+version = "0.1.0"
+description = "Automation Support Service Template"
+authors = ["nickosh <nikolay.shishov@gmail.com>"]
+license = "MPL-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+eventlet = "0.33.1"
+paramiko = "2.11.0"
+python-socketio = "5.7.1"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^5.0.4"
+black = "^22.8.0"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

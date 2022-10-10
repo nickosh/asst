@@ -1,0 +1,14 @@
+{
+  "name": "asst-client-ts",
+  "version": "0.1.0",
+  "main": "main.ts",
+  "author": "nickosh <nikolay.shishov@gmail.com>",
+  "license" : "MPL-2.0",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.5.1"
+  }
+}
