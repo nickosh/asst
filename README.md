@@ -70,13 +70,13 @@ Start a server with `python3 server/asst/main.py` or use Dockerfile. It will sta
 
 ### Client example - Python
 
-- Change server's IP address if you need to inside `main.ts` - `const socket = io("http://0.0.0.0:5000");`
+- Change server's IP address if you need to inside `main.py` - `do = ClientWrapper(asst_ip="http://localhost:5000")`
 - Fill two `ssh_init` lines with own ssh parameters (*from box will work with Linux servers*)
 - Start client with `python3 clients/client-py/asst_client/main.py`
 
 ### Client example - TypeScript
 
-- Change server's IP address if you need to inside `main.py` - `do = ClientWrapper(asst_ip="http://localhost:5000")`
+- Change server's IP address if you need to inside `main.ts` - `const socket = io("http://0.0.0.0:5000");`
 - Fill `emitMsg` which contains `ssh_connection_init` job with own ssh parameters (*from box will work with Linux servers*)
 - Start client with `ts-node clients/client-ts/main.ts`
 
