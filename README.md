@@ -1,4 +1,4 @@
-ASST - Automation Support Service Template
+ASST - Automation Support Server Template
 ============
 
 :star2: [Features](#star2-features) | :robot: [How to - Server](#robot-how-to---server) | :mechanical_arm: [How to - Client](#mechanical\_arm-how-to---client) | :gear: [Run and testing](#gear-run-and-testing) | :spiral_notepad: [To do](#spiral\_notepad-to-do) | :scroll: [License](#scroll-license)
