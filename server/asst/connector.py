@@ -18,6 +18,11 @@ class ConnectionHandler:
         self.workdir = Path(__file__).parent.absolute()
         self.log = logging.getLogger(__name__)
 
+        if not conn_params.ready():
+            msg = "connection params missed"
+            self.log.exception(msg)
+            raise ValueError(msg)
+
         # --- Params ---
         self.ip_ha = conn_params.ssh_ip
         self.hostname = conn_params.ssh_hostname
