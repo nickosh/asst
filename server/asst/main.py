@@ -124,8 +124,8 @@ def message(sid, data):
                     log.warning(
                         "Your SSH connection params dropped off. Please reinit.", sid
                     )
-                    msg_result = {"result": False}
                     ssh_connects[sid] = SshParams(None, None, None, None)
+                msg_result = {"result": False}
             else:
                 try:
                     ssh_connects[sid].ssh_ip = data["params"]["ssh_ip"]
