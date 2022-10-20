@@ -36,6 +36,8 @@ Server handles constant connection with clients, keeps client information such a
 
 `connector.py` - module which handles all ssh logic to work with backend servers.
 
+`config.ini` - default server params.
+
 <!-- How to - Client -->
 :mechanical_arm: How to - Client
 ---------------
@@ -52,6 +54,8 @@ I really like the idea of making the client as easy and accessible as possible t
 
 `logger.py` - simple logger for client.
 
+`config.ini` - default client params.
+
 ### TypeScript client
 
 Example of Python client can be found in the `/clients/client-ts/` directory.
@@ -66,12 +70,12 @@ Server and examples of clients work from the box and can be started as is for te
 
 ### Server
 
-Start a server with `python3 server/asst/main.py` or use Dockerfile. It will start on `5000` port. It can be changed in `main.py` - `SERVER_PORT = 5000` and inside a Dockerfile - `EXPOSE 5000`. If you are going to use docker-compose configuration be sure you changed port there too.
+Start a server with `python3 server/asst/main.py` or use Dockerfile. It will start on `5000` port by default. It can be changed in `config.ini` - `port = 5000` and inside a Dockerfile - `EXPOSE 5000`. If you are going to use docker-compose configuration be sure you changed port there too.
 
 ### Client example - Python
 
-- Change server's IP address if you need to inside `main.py` - `do = ClientWrapper(asst_ip="http://localhost:5000")`
-- Fill two `ssh_init` lines with own ssh parameters (*from box will work with Linux servers*)
+- Change server's IP address and port, if you need to, inside `config.ini` - `[connect]` `ip = localhost` `port = 5000`
+- Fill two `[serverX]` tabs with own ssh parameters (*from box will work with Linux servers*)
 - Start client with `python3 clients/client-py/asst_client/main.py`
 
 ### Client example - TypeScript
