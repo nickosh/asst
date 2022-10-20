@@ -50,26 +50,21 @@ class LoggerHandler(object):
             raise ValueError("Unknown logger level")
 
     def debug(self, message: str, sid: str = None):
-        message = f"[{sid}] {message}" if sid else message
         self.pylog.debug(message)
-        self.servlog.emit("server_log", f"[DEBUG] {message}")
+        self.servlog.emit("server_log", f"[DEBUG] {message}", room=sid)
 
     def info(self, message: str, sid: str = None):
-        message = f"[{sid}] {message}" if sid else message
         self.pylog.info(message)
-        self.servlog.emit("server_log", f"[INFO] {message}")
+        self.servlog.emit("server_log", f"[INFO] {message}", room=sid)
 
     def warning(self, message: str, sid: str = None):
-        message = f"[{sid}] {message}" if sid else message
         self.pylog.warning(message)
-        self.servlog.emit("server_log", f"[WARNING] {message}")
+        self.servlog.emit("server_log", f"[WARNING] {message}", room=sid)
 
     def error(self, message: str, sid: str = None):
-        message = f"[{sid}] {message}" if sid else message
         self.pylog.error(message)
-        self.servlog.emit("server_log", f"[ERROR] {message}")
+        self.servlog.emit("server_log", f"[ERROR] {message}", room=sid)
 
     def critical(self, message: str, sid: str = None):
-        message = f"[{sid}] {message}" if sid else message
         self.pylog.critical(message)
-        self.servlog.emit("server_log", f"[CRITICAL] {message}")
+        self.servlog.emit("server_log", f"[CRITICAL] {message}", room=sid)

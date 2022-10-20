@@ -63,6 +63,12 @@ class SshParams:
     ssh_pass: Optional[str]
     ssh_port: int = 22
 
+    def ready(self):
+        if self.ssh_ip and self.ssh_user and self.ssh_pass and self.ssh_port:
+            return True
+        else:
+            return False
+
 
 # This function executed when new client connected.
 @sio.event
@@ -71,7 +77,7 @@ def connect(sid, _):
     # With empty params for now. Because we do not force client to connect ssh from start.
     # And client can change ssh params on the fly in any moment.
     ssh_connects[sid] = SshParams(None, None, None, None)
-    log.info("connect", sid)
+    log.info(f"{sid} connected")
 
 
 # Main function to maintain client-server messages exchange.
@@ -108,12 +114,18 @@ def message(sid, data):
                 if conn.ssh_ip == data["params"]["ssh_ip"]
             ]
             if len(check_conn) > 0:
-                log.error("Oops, somebody already works with same ip", sid)
-                log.warning(
-                    "Your SSH connection params dropped off. Please reinit.", sid
-                )
-                msg_result = {"result": False}
-                ssh_connects[sid] = SshParams(None, None, None, None)
+                if (
+                    ssh_connects[sid]
+                    and ssh_connects[sid].ssh_ip == data["params"]["ssh_ip"]
+                ):
+                    log.warning("Your already use same SSH connection params", sid)
+                else:
+                    log.error("Oops, somebody already works with same ip", sid)
+                    log.warning(
+                        "Your SSH connection params dropped off. Please reinit.", sid
+                    )
+                    msg_result = {"result": False}
+                    ssh_connects[sid] = SshParams(None, None, None, None)
             else:
                 try:
                     ssh_connects[sid].ssh_ip = data["params"]["ssh_ip"]
@@ -156,7 +168,7 @@ def message(sid, data):
 def disconnect(sid):
     # Lets remove client's connection params from global list
     ssh_connects.pop(sid)
-    log.info("disconnect", sid)
+    log.info(f"{sid} disconnected")
 
 
 if __name__ == "__main__":
