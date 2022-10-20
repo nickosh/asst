@@ -12,17 +12,16 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import configparser
 import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
 import eventlet
 import socketio
 from connector import ConnectionHandler
 from logger import LoggerHandler
-
-# App params
-SERVER_PORT = 5000
 
 # SocketIO initialization
 sio = socketio.Server()
@@ -31,6 +30,29 @@ app = socketio.WSGIApp(sio)
 log = LoggerHandler(name=__name__, sio=sio)
 # Global dict to keep all ssh connections params from clients
 ssh_connects: dict = {}
+app_workdir = Path(__file__).cwd()
+
+# Config init
+def config_init(workdir: Path):
+    config = configparser.ConfigParser()
+    config_path = Path(workdir, "config.ini")
+    if config_path.exists():
+        config.read(config_path)
+        return config
+    else:
+        msg = "Can't start server because no config file was found"
+        log.error(msg)
+        raise EnvironmentError(msg)
+
+
+app_config = config_init(app_workdir)
+
+# App params
+try:
+    SERVER_IP: str = app_config["server"]["ip"]
+    SERVER_PORT: int = app_config["server"].getint("port")
+except Exception as e:
+    log.error(f"Fail to load app params: {e}")
 
 # Data class for client's ssh params.
 @dataclass
@@ -138,4 +160,4 @@ def disconnect(sid):
 
 
 if __name__ == "__main__":
-    eventlet.wsgi.server(eventlet.listen(("", SERVER_PORT)), app)
+    eventlet.wsgi.server(eventlet.listen((SERVER_IP, SERVER_PORT)), app)
