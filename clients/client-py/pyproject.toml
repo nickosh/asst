@@ -1,22 +1,28 @@
-[tool.poetry]
+[project]
 name = "asst-client-py"
 version = "0.1.0"
 description = "Example of Python Client for the ASST project"
-authors = ["nickosh <nikolay.shishov@gmail.com>"]
-license = "MPL-2.0"
 readme = "README.md"
-packages = [{include = "asst_client_py"}]
+requires-python = ">=3.10"
+license = "MPL-2.0"
+keywords = ["python", "testing", "linux", "docker", "ssh", "devops", "qa", "automation", "microservice", "client", "backend", " service", "client-server"]
+authors = [
+    {name = "Nikolay Shishov", email = "nikolay.shishov@gmail.com"}
+]
+classifiers = [
+    "Programming Language :: Python"
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-python-socketio = {version = "5.7.1", extras = ["client"]}
+dependencies = [
+    "python-socketio[client] == 5.7.2"
+]
 
+[project.optional-dependencies]
+dev = [
+    "flake8 >= 5.0.4",
+    "black >= 22.10.0",
+    "isort >= 5.10.1"
+]
 
-[tool.poetry.group.dev.dependencies]
-flake8 = "^5.0.4"
-black = "^22.8.0"
-isort = "^5.10.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.urls]
+repository = "https://github.com/nickosh/asst"
