@@ -1,3 +1,0 @@
-eventlet==0.33.1
-paramiko==2.11.0
-python-socketio==5.7.1
